@@ -1,0 +1,24 @@
+﻿Task 3 – Phone book v2
+
+Revise the phone book service. Have the service maintain data in a database (e.g. SQL Server Express LocalDB) using Entity Framework Code First. 
+
+Add operations to:
+1.	Add a new entry
+2.	Update an entry (i.e. replace entry for a specified number with a new entry)
+3.	Delete an entry (based on phone number)
+
+Modify the client application to test the new service. 
+
+.. this was original task
+Task 1 – Phone book Service
+
+A RESTful web service is required which allows a phone book to be looked for numbers and names.
+
+The service is to be implemented in C# using the ASP.Net Web API, and hosted on IIS Express. Have the service maintain a list of names and phone numbers and addresses in collection in memory which is initialised in the constructor for the service class. Lookups should be case insensitive. Names are not unique, but phone numbers are unique.
+
+The service should
+1.	Allow a lookup for a specified name – return matching numbers and addresses
+2.	Allow a lookup for a specified number – return the matching name and address
+
+Design and develop a simple C# console application which acts as a client for the service. 
+
