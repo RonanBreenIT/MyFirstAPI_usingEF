@@ -162,7 +162,7 @@ namespace MyFirstAPI.Controllers
         }
 
         // Added - 3. To Delete an entry into the Database ** Post Request **
-        [Route("DeleteEntry")]
+        [Route("DeleteEntry")] // http://localhost:51275/api/Phonebook/DeleteEntry?Number=1111 ** will Delete Ronan
         public IHttpActionResult DeleteEntry(string number)
         {
             using (PhonebookContext db = new PhonebookContext())
@@ -220,11 +220,7 @@ namespace MyFirstAPI.Controllers
         //{
         //}
 
-        //// DELETE: api/Phonebook/5
-        //public void Delete(int id)
-        //{
-
-        //}
+        
 
     }
 
