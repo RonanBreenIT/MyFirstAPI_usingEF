@@ -16,7 +16,7 @@ namespace MyFirstAPI.Models
 
         [Required]
         [MinLength(1)]
-        [MaxLength(140)]
+        [MaxLength(20)]
         public String Number { get; set; }
 
         
@@ -33,24 +33,6 @@ namespace MyFirstAPI.Models
             this.Number = _number;
             this.Address = _address;
         }
-
-        //public void AddPhoneBookEntry (Phonebook contact)
-        //{
-        //    using(PhonebookContext db = new PhonebookContext())
-        //    {
-        //        var match = db.Phonebooks.FirstOrDefault(p => p.Name.ToUpper() == contact.Name.ToUpper());
-        //        if (match != null)
-        //        {
-        //            throw new ArgumentException("Contact Already Exists");
-        //        }
-        //        else
-        //        {
-        //            db.Phonebooks.Add(contact);
-        //            db.SaveChanges();
-        //        }
-
-        //    }
-        //}
 
     }
 }

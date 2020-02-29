@@ -18,8 +18,8 @@ namespace MyFirstAPI.Controllers
 
         public PhonebookController() : base()
         {
-            using (PhonebookContext db = new PhonebookContext())
-            {
+            //using (PhonebookContext db = new PhonebookContext())
+            //{
                 Phonebook p1 = new Phonebook { Name = "Ronan", Number = "1111", Address = "1 Main Street" };
                 Phonebook p2 = new Phonebook { Name = "James", Number = "2222", Address = "2 Main Street" };
                 Phonebook p3 = new Phonebook { Name = "Pamela", Number = "3333" };
@@ -29,12 +29,10 @@ namespace MyFirstAPI.Controllers
                 myBook.Add(p3);
                 foreach (Phonebook item in myBook)
                 {
-                    db.Phonebooks.Add(item);
-                    db.SaveChanges();
-
+                    pCtx.Phonebooks.Add(item);
+                    pCtx.SaveChanges();
                 }
-
-            }
+            //}
         }
         // GET: api/Phonebook
         public IEnumerable<Phonebook> Get()
@@ -131,18 +129,18 @@ namespace MyFirstAPI.Controllers
         }
 
         // Added - 2. To update an entry already in the Database ** Post Request **
-        [Route("UpdateEntry")]
+        [Route("UpdateEntry")] 
         public IHttpActionResult UpdateEntry([FromBody]Phonebook contact)
         {
             using (PhonebookContext db = new PhonebookContext())
             {
                 var matchNumber = db.Phonebooks.FirstOrDefault(p => p.Number.ToUpper() == contact.Number.ToUpper());
-                var matchName = db.Phonebooks.FirstOrDefault(p => p.Name.ToUpper() == contact.Name.ToUpper());
-                if ((matchNumber == null) || (matchName == null))
+                //var matchName = db.Phonebooks.FirstOrDefault(p => p.Name.ToUpper() == contact.Name.ToUpper());
+                if (matchNumber == null) //|| (matchName == null))
                 {
                     return BadRequest("Entry doesn't exist"); // might update but means wont be added to DB - this is a 400
                 }
-                else if (matchNumber != null)
+                else //if (matchNumber != null)
                 {
                     matchNumber.Number = contact.Number;
                     matchNumber.Name = contact.Name;
@@ -150,25 +148,25 @@ namespace MyFirstAPI.Controllers
                     db.SaveChanges();
                     return Ok();
                 }
-                else // (matchName == null))
-                {
-                    matchName.Number = contact.Number;
-                    matchName.Name = contact.Name;
-                    matchName.Address = contact.Address;
-                    db.SaveChanges();
-                    return Ok();
-                }
+                //else // (matchName == null))
+                //{
+                //    matchName.Number = contact.Number;
+                //    matchName.Name = contact.Name;
+                //    matchName.Address = contact.Address;
+                //    db.SaveChanges();
+                //    return Ok();
+                //}
             }
         }
 
         // Added - 3. To Delete an entry into the Database ** Post Request **
-        [Route("DeleteEntry")]
+        [Route("DeleteEntry")] // http://localhost:51275/api/Phonebook/DeleteEntry?Number=1111 ** will Delete Ronan
         public IHttpActionResult DeleteEntry(string number)
         {
             using (PhonebookContext db = new PhonebookContext())
             {
                 var matchNumber = db.Phonebooks.FirstOrDefault(p => p.Number.ToUpper() == number.ToUpper());
-                if (matchNumber == null) 
+                if (matchNumber == null)
                 {
                     return BadRequest("Number not in DB"); // might update but means wont be added to DB - this is a 400
                 }
@@ -180,52 +178,5 @@ namespace MyFirstAPI.Controllers
                 }
             }
         }
-
-        // POST: api/Phonebook
-        //public void Post([FromBody]string value)
-        //{
-        //}
-
-        // 1. Added source - https://code-maze.com/efcore-modifying-data/
-        //[HttpPost]
-        //public IHttpActionResult Post([FromBody] Phonebook contact)
-        //{
-        //    if (contact == null)
-        //        return BadRequest();
-
-        //    if (!ModelState.IsValid)
-        //        return BadRequest();
-
-        //    var match = myBook.FirstOrDefault(p => p.Name.ToUpper() == contact.Name.ToUpper());
-        //    if (match != null)
-        //    {
-        //        return BadRequest(); // might update but means wont be added to DB - this is a 400
-        //    }
-        //    else
-        //    {
-        //        pCtx.Phonebooks.Add(contact);
-        //        pCtx.SaveChanges();
-        //        //return Created("URI of the created entity ", contact);
-        //        return Ok(match);
-        //    }
-
-        ///pCtx.Phonebooks.Add(contact);
-        //pCtx.SaveChanges();
-
-        //return Created("URI of the created entity ", contact);
-
-
-        //// PUT: api/Phonebook/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE: api/Phonebook/5
-        //public void Delete(int id)
-        //{
-
-        //}
-
     }
-
 }
