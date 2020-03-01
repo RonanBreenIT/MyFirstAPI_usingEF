@@ -11,7 +11,7 @@ namespace MyFirstAPI.Models
     {
         //public PhonebookContext() : base("DefaultConnection")
         //{
-        //    // always drop and re-create the schema
+        //    //always drop and re-create the schema
         //    Database.SetInitializer<PhonebookContext>(new DropCreateDatabaseAlways<PhonebookContext>());
         //}
         public DbSet<Phonebook> Phonebooks { get; set; }

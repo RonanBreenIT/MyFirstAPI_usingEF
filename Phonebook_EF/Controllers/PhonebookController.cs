@@ -13,28 +13,21 @@ namespace MyFirstAPI.Controllers
     public class PhonebookController : ApiController
 
     {
-        List<Phonebook> myBook = new List<Phonebook>();
         PhonebookContext pCtx = new PhonebookContext();
 
         public PhonebookController() : base()
         {
-            //using (PhonebookContext db = new PhonebookContext())
-            //{
-                Phonebook p1 = new Phonebook { Name = "Ronan", Number = "1111", Address = "1 Main Street" };
-                Phonebook p2 = new Phonebook { Name = "James", Number = "2222", Address = "2 Main Street" };
-                Phonebook p3 = new Phonebook { Name = "Pamela", Number = "3333" };
+            Phonebook p1 = new Phonebook { Name = "Ronan", Number = "1111", Address = "1 Main Street" };
+            Phonebook p2 = new Phonebook { Name = "James", Number = "2222", Address = "2 Main Street" };
+            Phonebook p3 = new Phonebook { Name = "Pamela", Number = "3333" };
 
-                myBook.Add(p1);
-                myBook.Add(p2);
-                myBook.Add(p3);
-                foreach (Phonebook item in myBook)
-                {
-                    pCtx.Phonebooks.Add(item);
-                    pCtx.SaveChanges();
-                }
-            //}
+            pCtx.Phonebooks.Add(p1);
+            pCtx.Phonebooks.Add(p2);
+            pCtx.Phonebooks.Add(p3);
+            pCtx.SaveChanges();
         }
-        // GET: api/Phonebook
+
+        // GET: api/Phonebook // returns all in the db
         public IEnumerable<Phonebook> Get()
         {
             using (PhonebookContext db = new PhonebookContext())
@@ -128,7 +121,7 @@ namespace MyFirstAPI.Controllers
             }
         }
 
-        // Added - 2. To update an entry already in the Database ** Post Request **
+        // Added - 2. To update an entry already in the Database ** Post Request ** Was going to match on both name and number but had issues. May revisit
         [Route("UpdateEntry")] 
         public IHttpActionResult UpdateEntry([FromBody]Phonebook contact)
         {
@@ -161,11 +154,11 @@ namespace MyFirstAPI.Controllers
 
         // Added - 3. To Delete an entry into the Database ** Post Request **
         [Route("DeleteEntry")] // http://localhost:51275/api/Phonebook/DeleteEntry?Number=1111 ** will Delete Ronan
-        public IHttpActionResult DeleteEntry(string number)
+        public IHttpActionResult DeleteEntry([FromBody]Phonebook contact)
         {
             using (PhonebookContext db = new PhonebookContext())
             {
-                var matchNumber = db.Phonebooks.FirstOrDefault(p => p.Number.ToUpper() == number.ToUpper());
+                var matchNumber = db.Phonebooks.FirstOrDefault(p => p.Number.ToUpper() == contact.Number.ToUpper());
                 if (matchNumber == null)
                 {
                     return BadRequest("Number not in DB"); // might update but means wont be added to DB - this is a 400
