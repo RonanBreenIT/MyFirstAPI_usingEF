@@ -47,7 +47,7 @@ namespace MyFirstAPI.Controllers
             }
         }
 
-        // http://localhost:56097/api/Phonebook?Number=1111
+        // api/Phonebook?Number=1111
         public string GetByNumber(string number)
         {
             using (PhonebookContext db = new PhonebookContext())
@@ -65,7 +65,7 @@ namespace MyFirstAPI.Controllers
         }
 
 
-        // Added - basically the same as GetByNumber
+        // Added - basically the same as GetByNumber /api/Phonebook/GetEntry/1111
         [Route("GetEntry/{number}")]
         public IHttpActionResult GetEntry(string number)
         {
@@ -82,7 +82,7 @@ namespace MyFirstAPI.Controllers
         }
 
 
-        // http://localhost:56097/api/Phonebook?Name=Ronan
+        // /api/Phonebook?Name=Ronan
         public string GetByName(string name)
         {
             using (PhonebookContext db = new PhonebookContext())
@@ -99,8 +99,16 @@ namespace MyFirstAPI.Controllers
             }
         }
 
+        // /api/Phonebook/AddEntry
+        /*      {
+	                "ID": 3,
+	                "Name": "Micahel",
+	                "Number": "5555",
+	                "Address": "5 Main Street"
+                }
+         */
 
-        // Added - 1. To add an entry into the Database ** Post Request **
+        // Added - 1. To add an entry into the Database ** POST Request **
         [Route("AddEntry")]
         public IHttpActionResult AddEntry([FromBody]Phonebook contact)
         {
@@ -120,6 +128,15 @@ namespace MyFirstAPI.Controllers
                 }
             }
         }
+
+        // /api/Phonebook/UpdateEntry - POST
+        /*  {
+	            "ID": 1,
+	            "Name": "Trevor",
+	            "Number": "1111",
+	            "Address": "1 Main Street"
+            }
+         */
 
         // Added - 2. To update an entry already in the Database ** Post Request ** Was going to match on both name and number but had issues. May revisit
         [Route("UpdateEntry")] 
@@ -151,6 +168,15 @@ namespace MyFirstAPI.Controllers
                 //}
             }
         }
+
+        // /api/Phonebook/DeleteEntry - DELETE
+        /*  {
+	            "ID": 1,
+	            "Name": "Trevor",
+	            "Number": "1111",
+	            "Address": "1 Main Street"
+            }         
+         */
 
         // Added - 3. To Delete an entry into the Database ** Post Request **
         [Route("DeleteEntry")] // http://localhost:51275/api/Phonebook/DeleteEntry?Number=1111 ** will Delete Ronan
