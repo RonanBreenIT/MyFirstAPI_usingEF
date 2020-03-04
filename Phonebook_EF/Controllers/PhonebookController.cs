@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using MyFirstAPI.Models;
 
 namespace MyFirstAPI.Controllers
 {
-
+    /// <summary>
+    /// This is an API for Phonebook DB. We can use Get, Post and Delete Entries
+    /// </summary>
     [RoutePrefix("api/Phonebook")]
+
     public class PhonebookController : ApiController
 
     {
@@ -28,6 +28,9 @@ namespace MyFirstAPI.Controllers
         }
 
         // GET: api/Phonebook // returns all in the db
+        /// <summary>
+        /// Returns All Phonebook entries in the DB
+        /// </summary>
         public IEnumerable<Phonebook> Get()
         {
             using (PhonebookContext db = new PhonebookContext())
@@ -38,6 +41,9 @@ namespace MyFirstAPI.Controllers
         }
 
         // GET: api/Phonebook/1
+        /// <summary>
+        /// Returns only one Phonebook Entry where ID is equal to the ID Number you pass in. 
+        /// </summary>
         public IEnumerable<Phonebook> GetByID(int id)
         {
             using (PhonebookContext db = new PhonebookContext())
@@ -48,6 +54,9 @@ namespace MyFirstAPI.Controllers
         }
 
         // api/Phonebook?Number=1111
+        /// <summary>
+        /// Returns only one Phonebook Entry where Phone number is equal to the Phone Number you pass in. 
+        /// </summary>
         public string GetByNumber(string number)
         {
             using (PhonebookContext db = new PhonebookContext())
@@ -66,6 +75,9 @@ namespace MyFirstAPI.Controllers
 
 
         // Added - basically the same as GetByNumber /api/Phonebook/GetEntry/1111
+        /// <summary>
+        /// Returns only one Phonebook Entry where Phone number is equal to the Phone Number you pass in. 
+        /// </summary>
         [Route("GetEntry/{number}")]
         public IHttpActionResult GetEntry(string number)
         {
@@ -83,6 +95,9 @@ namespace MyFirstAPI.Controllers
 
 
         // /api/Phonebook?Name=Ronan
+        /// <summary>
+        /// Returns only one Phonebook Entry where Name is equal to the Name you pass in. 
+        /// </summary>
         public string GetByName(string name)
         {
             using (PhonebookContext db = new PhonebookContext())
@@ -109,6 +124,9 @@ namespace MyFirstAPI.Controllers
          */
 
         // Added - 1. To add an entry into the Database ** POST Request **
+        /// <summary>
+        /// Adds a Phonebook Entry based on details you enter in the body
+        /// </summary>
         [Route("AddEntry")]
         public IHttpActionResult AddEntry([FromBody]Phonebook contact)
         {
@@ -139,6 +157,9 @@ namespace MyFirstAPI.Controllers
          */
 
         // Added - 2. To update an entry already in the Database ** Post Request ** Was going to match on both name and number but had issues. May revisit
+        /// <summary>
+        /// Updates a Phonebook Entry based on details you enter in the body. Matches on Phone Number. 
+        /// </summary>
         [Route("UpdateEntry")] 
         public IHttpActionResult UpdateEntry([FromBody]Phonebook contact)
         {
@@ -179,6 +200,9 @@ namespace MyFirstAPI.Controllers
          */
 
         // Added - 3. To Delete an entry into the Database ** Post Request **
+        /// <summary>
+        /// Deletes a Phonebook Entry based on details you enter in the body. Matches on Phone Number. 
+        /// </summary>
         [Route("DeleteEntry")] // http://localhost:51275/api/Phonebook/DeleteEntry?Number=1111 ** will Delete Ronan
         public IHttpActionResult DeleteEntry([FromBody]Phonebook contact)
         {
